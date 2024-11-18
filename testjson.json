@@ -1,0 +1,12 @@
+{
+  "Guests":  [
+
+    ]
+}[
+  {
+    "Name": "Test person",
+    "Age": 30,
+    "RoomNumber": 100,
+    "CreditCardNumber": null
+  }
+]
