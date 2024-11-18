@@ -34,7 +34,7 @@ public class Guest
 
 public class Room
 {
-    public int RoomNumber { get; set; }cd 
+    public int RoomNumber { get; set; }
     public bool IsOccupied { get; set; }
     public Guest Occupant { get; set; }
 
@@ -134,6 +134,7 @@ public static class HotelManager
     public static Guest FindGuest(string name, int age)
     {
         return guests.FirstOrDefault(g => g.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && g.Age == age);
+       //return guests.FirstOrDefault(g=>g.RoomNumber.Equals(roomNo));
     }
 
     public static Guest CheckOutGuest()
