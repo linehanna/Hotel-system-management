@@ -44,12 +44,14 @@ namespace Management;
         public Gäst Occupant { get; set; }
         public DateTime? LastCleaned { get; set; } // Nullable för rum som aldrig har städats
 
+
         public Rum(int rumsnummer)
         {
             Rumsnummer = rumsnummer;
             IsOccupied = false;
             LastCleaned = null; // Inget städtillfälle vid skapande
         }
+
 
         public void AssignGäst(Gäst gäst)
         {
@@ -156,9 +158,11 @@ public class Suite : Rum
         }
          public static Gäst FindGäst(string name, int age)
     {
+
         return gäster.FirstOrDefault(g=>g.Rumsnummer.Equals(rumms));
        // return gäster.FirstOrDefault(g => g.Name.Equals(name, StringComparison.OrdinalIgnoreCase) && g.Age == age);
         
+
     }
           
         // Visa tillgängliga rum
