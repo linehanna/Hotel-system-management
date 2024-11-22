@@ -1,18 +1,16 @@
-namespace HotelManagement
+namespace Hotel.HManagement
 {
     public class RoomCleaning
     {
-        public void CleanRoom(Room room)
+        public void CleanRoom(Rum rum)
         {
-            if (room.IsOccupied)
+            if (rum.IsOccupied)
             {
-                Console.WriteLine($"Kan inte städa rum {room.RoomNumber} eftersom det är upptaget.");
+                Console.WriteLine($"Kan inte städa rum {rum.Rumsnummer} eftersom det är upptaget.");
             }
             else
             {
-                Console.WriteLine($"Städar rum {room.RoomNumber}...");
-                // Lägg till logik för att städa rummet här
-                Console.WriteLine($"Rum {room.RoomNumber} har städats.");
+                rum.MarkAsCleaned();
             }
         }
     }

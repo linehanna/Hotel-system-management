@@ -1,66 +1,69 @@
-/*using System;
-namespace HotelManagement
+namespace Hotel.HManagement
 {
-// Bas klass för att representera ett rum
-    public class Room
+    public class Rum
     {
-        public int RoomNumber { get; set; } // Rumsnumret
-        public bool IsOccupied { get; set; } // Indikerar om rummet är upptaget
-        public Guest Occupant { get; set; } // Gästen som bor i rummet
+        public int Rumsnummer { get; private set; }
+        public bool IsOccupied { get; private set; }
+        public Gäst Occupant { get; private set; }
+        public DateTime? LastCleaned { get; private set; } // Tillagd för att matcha `Program.cs`
 
-        // Metod för att tilldela en gäst till rummet
-        public virtual void AssignGuest(Guest guest)
+        public Rum(int rumsnummer)
         {
-            if (!IsOccupied)
-            {
-                Occupant = guest;
-                IsOccupied = true;
-                Console.WriteLine($"Gäst {guest.Name} har blivit tilldelad till rum {RoomNumber}.");
-            }
-            else
-            {
-                Console.WriteLine($"Rum {RoomNumber} är redan upptaget.");
-            }
+            this.Rumsnummer = rumsnummer;
+            this.IsOccupied = false;
         }
 
-        // Metod för att ta bort en gäst från rummet
-        public virtual void RemoveGuest()
+        public virtual void AssignGäst(Gäst gäst)
         {
             if (IsOccupied)
             {
-                Console.WriteLine($"Gäst {Occupant.Name} har checkat ut från rum {RoomNumber}.");
-                Occupant = null;
-                IsOccupied = false;
+                Console.WriteLine($"Rum {Rumsnummer} är redan upptaget.");
+                return;
             }
+
+            Occupant = gäst;
+            IsOccupied = true;
+            Console.WriteLine($"Gäst {gäst.Name} har checkat in i rum {Rumsnummer}.");
         }
+
+        public void Vacate()
+        {
+            if (!IsOccupied)
+            {
+                Console.WriteLine($"Rum {Rumsnummer} är redan ledigt.");
+                return;
+            }
+
+            Console.WriteLine($"Rum {Rumsnummer} frigörs från gäst {Occupant.Name}.");
+            Occupant = null;
+            IsOccupied = false;
+        }
+
+        public void MarkAsCleaned()
+        {
+            LastCleaned = DateTime.Now;
+            Console.WriteLine($"Rum {Rumsnummer} är nu städat. Senast städad: {LastCleaned}");
+        }
+
+        public override string ToString()
+        {
+            return $"Rum {Rumsnummer} - {(IsOccupied ? $"Upptaget av {Occupant?.Name}" : "Ledigt")}";
+        }
+    }
+
+    public class SingleRum : Rum
+    {
+        public SingleRum(int rumsnummer) : base(rumsnummer) { }
+    }
+
+    public class DoubleRum : Rum
+    {
+        public DoubleRum(int rumsnummer) : base(rumsnummer) { }
+    }
+
+    public class Suite : Rum
+    {
+        public Suite(int rumsnummer) : base(rumsnummer) { }
     }
 }
-  // Klass för enkelrum
-    public class SingleRoom : Room
-    {
-        public SingleRoom(int roomNumber)
-        {
-            RoomNumber = roomNumber;
-        }
-    }
-
-
-  // Klass för dubbelrum
-    public class DoubleRoom : Room
-    {
-        public DoubleRoom(int roomNumber)
-        {
-            RoomNumber = roomNumber;
-        }
-    }
-
-    // Klass för svit
-    public class Suite : Room
-    {
-        public Suite(int roomNumber)
-        {
-            RoomNumber = roomNumber;
-        }
-    }*/
-
 

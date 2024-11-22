@@ -1,36 +1,41 @@
-/*namespace HotelManagement;
-
-
-// Metod för att spara gästlistan i en JSON-fil
-
-    public static void SaveToJsonFile()
+namespace Hotel.HManagement
+{
+    public class Gäst
     {
-        try
-        {
-            string jsonString = JsonSerializer.Serialize(guests, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText("guest.json", jsonString);
-            Console.WriteLine("Gästinformation sparad i guest.json.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Ett fel uppstod vid sparandet av filen: {ex.Message}");
-        }
-    }
+        private string creditCardNumber;
 
-    // Metod för att läsa in gästlistan från en JSON-fil
-    public static void LoadFromJsonFile()
-    {
-        try
+        public string Name { get; set; }
+        public int Age { get; set; }
+        public int Rumsnummer { get; set; }
+
+        public string CreditCardNumber
         {
-            if (File.Exists("guest.json"))
+            get => string.IsNullOrEmpty(creditCardNumber) ? "Ej angivet" : "************" + creditCardNumber[^4..];
+            set
             {
-                string jsonString = File.ReadAllText("guest.json");
-                guests = JsonSerializer.Deserialize<List<Guest>>(jsonString);
-                Console.WriteLine("Gästinformation laddad från guest.json.");
+                if (!IsValidCreditCard(value))
+                    throw new ArgumentException("Ogiltigt kreditkortsnummer.");
+                creditCardNumber = value;
             }
         }
-        catch (Exception ex)
+
+        public Gäst() { }
+
+        public Gäst(string name, int age, int rumsnummer)
         {
-            Console.WriteLine($"Ett fel uppstod vid läsningen av filen: {ex.Message}");
+            Name = name;
+            Age = age;
+            Rumsnummer = rumsnummer;
         }
-    }*/
+
+        public override string ToString()
+        {
+            return $"Namn: {Name}, Ålder: {Age}, Rumsnummer: {Rumsnummer}, Kreditkort: {CreditCardNumber}";
+        }
+
+        private bool IsValidCreditCard(string cardNumber)
+        {
+            return !string.IsNullOrWhiteSpace(cardNumber) && cardNumber.Length == 16 && cardNumber.All(char.IsDigit);
+        }
+    }
+}    
